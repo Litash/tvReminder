@@ -26,7 +26,6 @@ def job():
                 # visit zimuzu.com
                 r = requests.get(resurl)
                 soup = BeautifulSoup(r.text, "html5lib")
-                # print(soup.prettify())
                 # process html
                 note = soup.select(".resource-note")
                 notestr = note[0].string
@@ -46,9 +45,7 @@ def job():
     worksheet.update_cells(update_cells)
 
 if __name__ == '__main__':
-    # schedule.every(4).hours.do(job)
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
-
-    job()
+    schedule.every(4).hours.do(job)
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
