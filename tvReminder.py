@@ -16,6 +16,8 @@ def job():
     note_cells = worksheet.range('F2:F62')
     update_cells = worksheet.range('G2:G62')
 
+    isUpdate = 0
+
     # len(dlurl_cells)
     for x in xrange(len(dlurl_cells)):
         dlurl = dlurl_cells[x].value
@@ -33,6 +35,7 @@ def job():
                 newNoteStr = notestr.replace(replaceRawStr,'')
 
                 if not note_cells[x].value == newNoteStr:
+                    isUpdate = 1
                     note_cells[x].value = newNoteStr
                     update_cells[x].value = '***'
 
@@ -41,8 +44,9 @@ def job():
                 continue
 
     # Update in batch
-    worksheet.update_cells(note_cells)
-    worksheet.update_cells(update_cells)
+    if isUpdate==1 :
+        worksheet.update_cells(note_cells)
+        worksheet.update_cells(update_cells)
 
 if __name__ == '__main__':
     schedule.every(4).hours.do(job)
