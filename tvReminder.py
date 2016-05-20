@@ -1,5 +1,5 @@
 # -*- coding: UTF-8 -*-
-import gspread, requests, schedule, time
+import gspread, requests, schedule, time, datetime
 from oauth2client.service_account import ServiceAccountCredentials
 from bs4 import BeautifulSoup
 
@@ -37,7 +37,8 @@ def job():
                 if not note_cells[x].value == newNoteStr:
                     isUpdate = 1
                     note_cells[x].value = newNoteStr
-                    update_cells[x].value = '***'
+                    now = datetime.datetime.now()
+                    update_cells[x].value = now.strftime("%Y-%m-%d")
 
             except Exception, e:
                 print e
@@ -49,7 +50,8 @@ def job():
         worksheet.update_cells(update_cells)
 
 if __name__ == '__main__':
-    schedule.every(4).hours.do(job)
+    job()
+    schedule.every(2).hours.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
