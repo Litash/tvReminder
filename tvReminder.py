@@ -23,14 +23,17 @@ def job():
         dlurl = dlurl_cells[x].value
         if dlurl is not '':
             resurl = dlurl.replace('/list','')
+            # print resurl
 
             try:
                 # visit zimuzu.com
                 r = requests.get(resurl)
                 soup = BeautifulSoup(r.text, "html5lib")
+
                 # process html
-                note = soup.select(".resource-note")
+                note = soup.select(".resource-tit > p")
                 notestr = note[0].string
+                # print notestr
                 replaceRawStr = unicode('說明：','utf-8')
                 newNoteStr = notestr.replace(replaceRawStr,'')
 
@@ -51,7 +54,7 @@ def job():
 
 if __name__ == '__main__':
     job()
-    schedule.every(2).hours.do(job)
+    schedule.every(4).hours.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
