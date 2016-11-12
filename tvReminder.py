@@ -29,7 +29,7 @@ def job():
                 r = requests.get(resurl)
                 soup = BeautifulSoup(r.text, "html5lib")
                 # process html
-                note = soup.select(".resource-note")
+                note = soup.select(".resource-tit > p")
                 notestr = note[0].string
                 replaceRawStr = unicode('說明：','utf-8')
                 newNoteStr = notestr.replace(replaceRawStr,'')
