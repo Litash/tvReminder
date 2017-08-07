@@ -35,7 +35,7 @@ def job():
         dlurl = dlurl_cells[x].value
         if dlurl is not '':
             resurl = dlurl.replace('/resource/list/', '/gresource/')
-            print(resurl)
+            # print(resurl)
 
             try:
                 # visit zimuzu.com
@@ -72,7 +72,7 @@ def job():
 if __name__ == '__main__':
     job()
     # schedule job
-    schedule.every(4).hours.do(job)
+    schedule.every(3).hours.do(job)
     while True:
         schedule.run_pending()
         time.sleep(1)
